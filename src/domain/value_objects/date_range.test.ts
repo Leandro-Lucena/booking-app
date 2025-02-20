@@ -1,4 +1,5 @@
 import { DateRange } from './date_range';
+import { describe, expect, it } from '@jest/globals';
 
 describe('DateRange Value Objetc', () => {
 
@@ -30,5 +31,20 @@ describe('DateRange Value Objetc', () => {
         const totalNights2 = dateRange2.getTotalNights();
 
         expect(totalNights2).toBe(15);
+    });
+
+    it("Should verify if two date intervals overlap", () => {
+        const dateRange1 = new DateRange(new Date('2024-12-20'), new Date('2024-12-25'));
+        const dateRange2 = new DateRange(new Date('2024-12-22'), new Date('2024-12-27'));
+        const overlaps = dateRange1.overlaps(dateRange2);
+
+        expect(overlaps).toBe(true);
+    });
+
+    it("Should throw error if start date is equal to end date", () => {
+        const date = new Date('2024-12-20');
+        expect(() => {
+            new DateRange(date, date);
+        }).toThrow("Start date and end date must be different");
     });
 });
