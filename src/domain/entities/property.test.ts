@@ -1,5 +1,7 @@
 import { Property } from "./property";
 import { DateRange } from "../value_objects/date_range";
+import { Booking } from "./booking";
+import { User } from "./user";
 
 describe("Property Entity", () => {
   it("Should create a new Property instance with all attributes", () => {
@@ -75,5 +77,29 @@ describe("Property Entity", () => {
     );
     const totalPrice = property.calculateTotalPrice(dateRange);
     expect(totalPrice).toBe(7 * 150 * 0.9);
+  });
+
+  it("Should verify disponibility of property", () => {
+    const user = new User("1", "John Doe");
+    const property = new Property(
+      "1",
+      "Property Name",
+      "Property Description",
+      5,
+      150
+    );
+    const dateRange = new DateRange(
+      new Date("2021-01-20"),
+      new Date("2021-01-25")
+    );
+    const dateRange2 = new DateRange(
+      new Date("2021-01-22"),
+      new Date("2021-01-27")
+    );
+
+    new Booking("1", property, user, dateRange, 2);
+
+    expect(property.isAvailable(dateRange)).toBe(false);
+    expect(property.isAvailable(dateRange2)).toBe(false);
   });
 });
