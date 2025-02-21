@@ -1,3 +1,4 @@
+import { RefundRuleFactory } from "../cancelation/refund_rule_factory";
 import { DateRange } from "../value_objects/date_range";
 import { Property } from "./property";
 import { User } from "./user";
@@ -65,15 +66,12 @@ export class Booking {
       throw new Error("Cannot cancel a booking which is already cancelled");
     }
 
-    this.status = "CANCELLED";
     const checkInDate = this.dateRange.getStartDate();
     const timeDiff = checkInDate.getTime() - currentDate.getTime();
     const daysToCheckIn = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    const refundRule = RefundRuleFactory.getRefundRule(daysToCheckIn);
 
-    if (daysToCheckIn > 7) {
-      this.totalPrice = 0;
-    } else if (daysToCheckIn > 0 && daysToCheckIn <= 7) {
-      this.totalPrice = this.totalPrice * 0.5;
-    }
+    this.totalPrice = refundRule.calculateRefund(this.totalPrice);
+    this.status = "CANCELLED";
   }
 }
