@@ -61,6 +61,10 @@ export class Booking {
     return this.totalPrice;
   }
 
+  getGuest(): User {
+    return this.user;
+  }
+
   cancel(currentDate: Date): void {
     if (this.status == "CANCELLED") {
       throw new Error("Cannot cancel a booking which is already cancelled");

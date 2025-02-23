@@ -179,4 +179,12 @@ describe("BookingService", () => {
     expect(spyFindById).toHaveBeenCalledTimes(2);
     spyFindById.mockRestore();
   });
+
+  it("Should return a error if try to cancel a booking that does not exist", async () => {
+    const bookingId = "invalid-id";
+
+    await expect(bookingService.cancelBooking(bookingId)).rejects.toThrow(
+      "Booking not found"
+    );
+  });
 });
