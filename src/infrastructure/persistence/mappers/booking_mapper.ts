@@ -7,6 +7,18 @@ import { PropertyMapper } from "./property_mapper";
 
 export class BookingMapper {
   static toDomain(entity: BookingEntity, property?: Property): Booking {
+    if (!entity.id) {
+      throw new Error("BookingEntity is missing the required 'id' field");
+    }
+    if (!entity.guest || !entity.guest.id || !entity.guest.name) {
+      throw new Error("BookingEntity is missing the required 'guest' field");
+    }
+    if (!entity.guestCount || entity.guestCount <= 0) {
+      throw new Error(
+        "BookingEntity 'guestCount' field is required and must be greater than zero"
+      );
+    }
+
     const guest = UserMapper.toDomain(entity.guest);
     const dateRange = new DateRange(entity.startDate, entity.endDate);
 

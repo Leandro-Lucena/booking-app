@@ -1,6 +1,6 @@
 # Property Booking System
 
-This project is a learning activity in **Test-Driven Development (TDD)**, inspired by platforms like Airbnb. The goal is to allow users to book properties, check availability, and cancel bookings according to predefined policies. The project was developed using TDD best practices, resulting in a total of **51 automated tests**, covering unit, integration, and end-to-end tests.
+This project is a learning activity in **Test-Driven Development (TDD)**, inspired by platforms like Airbnb. The goal is to allow users to book properties, check availability, and cancel bookings according to predefined policies. The project was developed using TDD best practices, resulting in a total of **72 automated tests**, covering unit, integration, and end-to-end tests.
 
 ## Technologies Used
 
